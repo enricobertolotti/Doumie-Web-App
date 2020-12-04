@@ -1,5 +1,5 @@
 <template>
-  <div d-fl>
+  <div class="">
     <h1>{{ this.$store.state.authStore.test }}</h1>
   </div>
 </template>

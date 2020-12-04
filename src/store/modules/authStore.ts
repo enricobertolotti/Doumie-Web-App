@@ -1,5 +1,5 @@
 const state = {
-  test: "My first state!"
+  test: "User State!"
 };
 const getters = {};
 const actions = {};
