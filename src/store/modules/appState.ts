@@ -9,8 +9,17 @@ const getters = {
     return state.stateType;
   }
 };
-const actions = {};
-const mutations = {};
+const mutations = {
+  updateAppState(state, newState) {
+    state.stateType = newState.type;
+    state.stateParams = newState.params;
+  }
+};
+const actions = {
+  updateAppState(context, newState) {
+    context.commit("updateAppState", newState);
+  }
+};
 
 export default {
   state,

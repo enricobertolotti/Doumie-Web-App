@@ -10,6 +10,7 @@
       :color="item.color"
       :width="dimension[0]"
       :height="dimension[1]"
+      v-on:clicked="clicked(index)"
     />
   </div>
 </template>
@@ -21,20 +22,28 @@ export default {
     return {
       items: [
         {
+          id: "today",
           name: "Today",
           color: "red"
         },
         {
+          id: "week",
           name: "This Week",
           color: "blue"
         },
         {
+          id: "anytime",
           name: "Anytime",
           color: "white"
         }
       ],
       dimension: [0.5, 0.5]
     };
+  },
+  methods: {
+    clicked(value) {
+      this.$emit("clicked", value);
+    }
   },
   components: {
     SideBarListElement

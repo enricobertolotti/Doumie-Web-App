@@ -1,7 +1,18 @@
+// TODO: Implement sync with firestore
+
 const state = {
-  test: "User State!"
+  firstName: "Enrico",
+  lastName: "Bertolotti",
+  email: "hello@enricobertolotti.com"
 };
-const getters = {};
+const getters = {
+  fullName(state) {
+    return state.firstName + " " + state.lastName;
+  },
+  userEmail(state) {
+    return state.email;
+  }
+};
 const actions = {};
 const mutations = {};
 

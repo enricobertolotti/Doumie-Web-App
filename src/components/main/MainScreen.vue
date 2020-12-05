@@ -13,9 +13,13 @@
 import { states } from "@/models/States";
 
 export default {
+  data() {
+    return {
+      subtitle: ""
+    };
+  },
   computed: {
     title() {
-      console.log(this.$store);
       switch (this.$store.getters.currentState) {
         case states.group:
           return "Group View";
@@ -29,6 +33,11 @@ export default {
     },
     state() {
       return this.$store.getters.currentState;
+    }
+  }, 
+  methods: {
+    setSubtitle(newSubtitle) {
+      this.subtitle = newSubtitle;
     }
   }
 };
