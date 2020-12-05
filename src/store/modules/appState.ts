@@ -20,8 +20,8 @@ const getters = {
       default:
         return "Unknown State";
     }
-  }, 
-  stateSubtitle(state, getters, rootState, rootGetters){
+  },
+  stateSubtitle(state, getters, rootState, rootGetters) {
     switch (state.stateType) {
       case states.group:
         return "Group View";

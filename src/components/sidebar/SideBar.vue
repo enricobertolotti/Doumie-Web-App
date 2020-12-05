@@ -7,7 +7,6 @@
     <!-- Overview -->
     <SideBarSection
       class="sidebar-section mb-auto"
-      
       :data="overviewSection"
       v-on:clicked="overviewElementClicked"
     />
