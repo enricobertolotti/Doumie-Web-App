@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex w-100 h-100" style="background: #303030">
-    <h5>Preferences Page</h5>
+  <div class="d-flex w-100 h-100">
+    <h5>Preference Page</h5>
   </div>
 </template>
 

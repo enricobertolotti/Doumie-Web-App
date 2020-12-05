@@ -1,5 +1,5 @@
 export enum states {
-  group,
-  overview,
-  preferences
+  group = "Group",
+  overview = "Overview",
+  preferences = "Preferences"
 }

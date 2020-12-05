@@ -1,16 +1,16 @@
 <template>
   <div class="d-flex flex-column w-100">
     <div class="d-flex flex-columnjustify-content-between">
-      <h6 class="align-self-start">Overview</h6>
+      <h6 class="align-self-start">{{ data.title }}</h6>
     </div>
     <SideBarListElement
-      v-for="(item, index) in items"
+      v-for="(item, index) in data.items"
       :key="index"
       :listItemName="item.name"
       :color="item.color"
       :width="dimension[0]"
       :height="dimension[1]"
-      v-on:clicked="clicked(index)"
+      v-on:clicked="clicked(item.id)"
     />
   </div>
 </template>
@@ -18,25 +18,11 @@
 <script>
 import SideBarListElement from "@/components/sidebar/SideBarListElement.vue";
 export default {
+  props: {
+    data: Object
+  },
   data() {
     return {
-      items: [
-        {
-          id: "today",
-          name: "Today",
-          color: "red"
-        },
-        {
-          id: "week",
-          name: "This Week",
-          color: "blue"
-        },
-        {
-          id: "anytime",
-          name: "Anytime",
-          color: "white"
-        }
-      ],
       dimension: [0.5, 0.5]
     };
   },

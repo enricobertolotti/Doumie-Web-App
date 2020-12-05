@@ -2,8 +2,13 @@
   <div class="d-flex justify-content-center darker-bg w-100 h-100 p-3">
     <div class="d-flex flex-column flex-grow-1">
       <h1 class="align-self-start">{{ title }}</h1>
+      <h6 v-if="subtitle" class="align-self-start">{{ subtitle }}</h6>
       <div class="d-flex flex-grow-1">
         <!-- Individual Pages go here -->
+        <OverviewPanel v-if="state == 'overview'" />
+        <Preferences v-if="state == 'preferences'" />
+        <GroupView v-else-if="state == 'group'" />
+        
       </div>
     </div>
   </div>
@@ -12,33 +17,30 @@
 <script>
 import { states } from "@/models/States";
 
+// Import individual page components
+import Preferences from "@/components/main/Preferences/Preferences";
+import OverviewPanel from "@/components/main/Overview/OverviewPanel";
+
 export default {
-  data() {
-    return {
-      subtitle: ""
-    };
-  },
   computed: {
     title() {
-      switch (this.$store.getters.currentState) {
-        case states.group:
-          return "Group View";
-        case states.overview:
-          return "Overview";
-        case states.preferences:
-          return "Preferences";
-        default:
-          return "Unknown State";
-      }
+      return this.$store.getters.stateTitle;
     },
     state() {
-      return this.$store.getters.currentState;
+      return this.$store.getters.currentState.toLowerCase();
+    },
+    subtitle() {
+      return this.$store.getters.stateSubtitle;
     }
-  }, 
+  },
   methods: {
     setSubtitle(newSubtitle) {
       this.subtitle = newSubtitle;
     }
+  },
+  components: {
+    OverviewPanel,
+    Preferences
   }
 };
 </script>

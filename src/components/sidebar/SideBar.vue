@@ -5,8 +5,20 @@
   >
     <Logo />
     <!-- Overview -->
-    <SideBarSection v-on:clicked="overviewElementClicked" class="mb-auto" />
-    <!-- Groups -->
+    <SideBarSection
+      class="sidebar-section mb-auto"
+      
+      :data="overviewSection"
+      v-on:clicked="overviewElementClicked"
+    />
+
+    <!-- Groups 
+    <SideBarSection
+      class="sidebar-section mb-auto"
+      v-on:clicked="groupElementClicked"
+    /> -->
+
+    <!-- User Button -->
     <UserButton v-on:clicked="userButtonClicked()" />
   </div>
 </template>
@@ -15,7 +27,7 @@
 import Logo from "@/components/global/Logo.vue";
 import UserButton from "./UserButton.vue";
 import SideBarSection from "./SideBarSection.vue";
-import { states } from "@/models/States"
+import { states } from "@/models/States";
 
 export default {
   name: "",
@@ -32,6 +44,22 @@ export default {
         type: states.overview,
         params: [value]
       });
+    },
+    groupElementClicked(value) {
+      this.$store.dispatch("updateAppState", {
+        type: states.group,
+        params: [value]
+      });
+    }
+  },
+  computed: {
+    overviewSection() {
+      const listItems = this.$store.getters.allOverviewItems;
+      return {
+        title: "Overview",
+        button: false,
+        items: listItems
+      };
     }
   },
   components: {
@@ -42,4 +70,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.sidebar-section {
+  margin: 1em 0;
+}
+</style>

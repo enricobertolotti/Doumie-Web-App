@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="d-flex w-100 h-100">Overview Panel</div>
 </template>
 
 <script>
