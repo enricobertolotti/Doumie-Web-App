@@ -1,10 +1,10 @@
 <template>
   <div class="d-flex h-100 w-100 home p-0">
     <div class="sidebar p-0">
-      <SideBar />
+      <SideBar @userButtonClicked="onUserButtonClick" />
     </div>
     <div class="p-0 w-100">
-      <MainScreen />
+      <MainScreen :state="state" />
     </div>
   </div>
 </template>
@@ -16,8 +16,29 @@ import Vue from "vue";
 import SideBar from "../components/sidebar/SideBar.vue";
 import MainScreen from "../components/main/MainScreen.vue";
 
+import { states } from "@/models/States";
+
 export default Vue.extend({
   name: "Home",
+  data() {
+    return {
+      /** @type State */
+      state: {
+        /** @type states */
+        stateType: states.group,
+        stateParams: ""
+      }
+    };
+  },
+  methods: {
+    onUserButtonClick() {
+      this.state.stateType = states.preferences;
+    },
+
+    onGroupClick(value: string) {
+      console.log(value);
+    }
+  },
   components: {
     SideBar,
     MainScreen

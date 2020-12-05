@@ -4,7 +4,8 @@
       <h6 class="align-self-start">Overview</h6>
     </div>
     <SideBarListElement
-      v-for="(item, index) in items" :key="index"
+      v-for="(item, index) in items"
+      :key="index"
       :listItemName="item.name"
       :color="item.color"
       :width="dimension[0]"

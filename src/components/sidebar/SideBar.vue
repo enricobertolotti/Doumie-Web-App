@@ -4,10 +4,8 @@
     style="background: #0e1428"
   >
     <Logo />
-    <SideBarSection class="mb-auto" 
-      
-    />
-    <UserButton />
+    <SideBarSection class="mb-auto" />
+    <UserButton @click="userButtonClicked" />
   </div>
 </template>
 
@@ -17,6 +15,12 @@ import UserButton from "./UserButton.vue";
 import SideBarSection from "./SideBarSection.vue";
 
 export default {
+  name: "",
+  methods: {
+    userButtonClicked() {
+      this.$emit("userButtonClicked");
+    }
+  },
   components: {
     Logo,
     UserButton,

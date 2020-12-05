@@ -1,11 +1,37 @@
 <template>
-  <div class="d-flex justify-content-center darker-bg w-100 h-100">
-    <h1>Main Screen</h1>
+  <div class="d-flex justify-content-center darker-bg w-100 h-100 p-3">
+    <div class="d-flex flex-column flex-grow-1">
+      <h1 class="align-self-start">{{ title }}</h1>
+      <div class="d-flex flex-grow-1">
+        <!-- Individual Pages go here -->
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { states } from "@/models/States";
+
+export default {
+  computed: {
+    title() {
+      console.log(this.$store);
+      switch (this.$store.getters.currentState) {
+        case states.group:
+          return "Group View";
+        case states.overview:
+          return "Overview";
+        case states.preferences:
+          return "Preferences";
+        default:
+          return "Unknown State";
+      }
+    },
+    state() {
+      return this.$store.getters.currentState;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
