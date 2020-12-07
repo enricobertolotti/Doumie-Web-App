@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { Priority } from "@/models/ToDoItemProperties";
+import { Priority } from "@/models/ToDoItem";
 export default {
   props: {
     priority: String
@@ -18,7 +18,7 @@ export default {
         case Priority.medium:
           return "orange";
         case Priority.high:
-          return "red";
+          return "#a52b2b";
         default:
           return "black";
       }

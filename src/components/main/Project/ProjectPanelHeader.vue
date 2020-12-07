@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex w-100">
-    <h3>{{ title }}</h3>
+  <div>
+    <h5>{{ title }}</h5>
   </div>
 </template>
 

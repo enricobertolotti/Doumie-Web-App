@@ -1,3 +1,14 @@
+import { User } from "@/models/User";
+
+export interface ToDoItem {
+  id: string;
+  title: string;
+  description: string;
+  owner: User;
+  priority: Priority;
+  dueDate: Date;
+}
+
 export enum Priority {
   low = "Low",
   medium = "Medium",

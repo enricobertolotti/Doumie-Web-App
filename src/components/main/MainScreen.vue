@@ -8,15 +8,12 @@
         <OverviewPanel v-if="state == 'overview'" />
         <Preferences v-if="state == 'preferences'" />
         <GroupView v-else-if="state == 'group'" />
-        
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { states } from "@/models/States";
-
 // Import individual page components
 import Preferences from "@/components/main/Preferences/Preferences";
 import OverviewPanel from "@/components/main/Overview/OverviewPanel";

@@ -34,7 +34,7 @@
       />
       <ToDoItemDue
         class="d-flex justify-content-center h-100 w-100"
-        :dueDate="date"
+        :dueDate="dueDate"
       />
     </div>
   </div>
@@ -42,25 +42,49 @@
 
 <script>
 // Model Definitions
-import { Priority } from "@/models/ToDoItemProperties";
+import { Priority } from "@/models/ToDoItem";
 
 // Components
 import ToDoItemPriority from "@/components/main/ToDoItem/ToDoItemPriority.vue";
 import ToDoItemDue from "@/components/main/ToDoItem/ToDoItemDue.vue";
 
 export default {
-  data() {
-    return {
-      title: "Test Title",
-      description: "Test Description",
-      completed: false,
-      priority: Priority.low,
-      date: new Date()
-    };
+  props: {
+    groupID: String,
+    projectID: String,
+    todoItemID: String
   },
   methods: {
     toggleCompleted() {
-      this.completed = !this.completed;
+      this.$store.dispatch("toggleTodoCompletionByID", {
+        groupID: this.groupID,
+        projectID: this.projectID,
+        todoItemID: this.todoItemID
+      });
+    }
+  },
+  computed: {
+    todo() {
+      return this.$store.getters.getTodoByID(
+        this.groupID,
+        this.projectID,
+        this.todoItemID
+      );
+    },
+    title() {
+      return this.todo.title;
+    },
+    description() {
+      return this.todo.description;
+    },
+    completed() {
+      return this.todo.completed;
+    },
+    priority() {
+      return this.todo.priority;
+    },
+    dueDate() {
+      return this.todo.dueDate;
     }
   },
   components: {
