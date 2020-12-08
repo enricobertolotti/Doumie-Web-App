@@ -13,7 +13,6 @@ export default {
   },
   computed: {
     date() {
-      console.log("Date: ", this.dueDate);
       let datestring = "";
       datestring += String(this.dueDate.getDate()) + " ";
       datestring += Object.values(monthNames)[this.dueDate.getMonth()] + " ";

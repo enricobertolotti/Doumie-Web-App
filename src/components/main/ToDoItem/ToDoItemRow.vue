@@ -41,9 +41,6 @@
 </template>
 
 <script>
-// Model Definitions
-import { Priority } from "@/models/ToDoItem";
-
 // Components
 import ToDoItemPriority from "@/components/main/ToDoItem/ToDoItemPriority.vue";
 import ToDoItemDue from "@/components/main/ToDoItem/ToDoItemDue.vue";

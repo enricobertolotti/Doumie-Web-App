@@ -1,6 +1,5 @@
 import { Priority, ToDoItem } from "@/models/ToDoItem";
 
-
 import firebase from "firebase";
 import "firebase/firestore";
 import { firebaseConfig } from "@/configs/firestore";
