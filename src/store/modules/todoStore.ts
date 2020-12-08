@@ -1,5 +1,12 @@
 import { Priority, ToDoItem } from "@/models/ToDoItem";
 
+
+import firebase from "firebase";
+import "firebase/firestore";
+import { firebaseConfig } from "@/configs/firestore";
+
+firebase.initializeApp(firebaseConfig);
+
 const state = {
   groups: [
     {
@@ -50,10 +57,14 @@ const state = {
         }
       ]
     }
-  ]
+  ],
+  db: firebase.firestore()
 };
 
 const getters = {
+  getFirestoreObject(state) {
+    return state.db;
+  },
   getAllGroups(state) {
     return state.groups;
   },

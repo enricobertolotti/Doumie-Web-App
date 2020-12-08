@@ -42,6 +42,9 @@ export default Vue.extend({
   components: {
     SideBar,
     MainScreen
+  },
+  created() {
+    console.log(this.$store.getters.getFirestoreObject);
   }
 });
 </script>
