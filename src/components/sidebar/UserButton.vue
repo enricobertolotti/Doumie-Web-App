@@ -7,22 +7,29 @@
       <b-avatar variant="light"></b-avatar>
     </div>
     <div class="d-flex flex-column justify-items-start">
-      <h5 class="align-self-start">{{ userName() }}</h5>
-      <h6 class="align-self-start">{{ email() }}</h6>
+      <h5 class="align-self-start">{{ user.name }}</h5>
+      <h6 class="align-self-start">{{ user.email }}</h6>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
-  methods: {
-    userName() {
-      return this.$store.getters.fullName;
-    },
-    email() {
-      return this.$store.getters.userEmail;
-    }
+  computed: {
+    ...mapState({
+      user: state => state.authStore.userProfile
+    })
   }
+  // methods: {
+  //   userName() {
+  //     return this.$store.getters.fullName;
+  //   },
+  //   email() {
+  //     return this.$store.getters.userEmail;
+  //   }
+  // }
 };
 </script>
 

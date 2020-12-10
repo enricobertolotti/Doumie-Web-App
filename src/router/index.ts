@@ -6,6 +6,7 @@ import Dashboard from "@/views/Dashboard.vue";
 import Login from "@/views/Login.vue";
 
 import { auth } from "@/firebase/firebase";
+// import store from "@/store/store";
 
 Vue.use(VueRouter);
 
@@ -41,6 +42,9 @@ router.beforeEach((to, from, next) => {
 
   if (requiresAuth && !auth.currentUser) {
     next("/login");
+  } else if (to.path == "/dashboard") {
+    // store.dispatch("appState/resetAppState");
+    next();
   } else {
     next();
   }

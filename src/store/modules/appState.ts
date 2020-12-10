@@ -38,11 +38,18 @@ const mutations = {
   updateAppState(state, newState) {
     state.stateType = newState.type;
     state.stateParams = newState.params;
+  },
+  resetAppState(state) {
+    state.stateType = states.overview;
+    state.stateParams = [0];
   }
 };
 const actions = {
   updateAppState(context, newState) {
     context.commit("updateAppState", newState);
+  },
+  resetAppState(context) {
+    context.commit("resetAppState");
   }
 };
 

@@ -5,7 +5,7 @@
       <!-- Icon -->
       <div
         class="d-flex checkbox align-items-center h-100 m-2"
-        v-on:click="toggleCompleted"
+        v-on:click="toggleCompleted()"
       >
         <img
           v-if="completed"
@@ -44,29 +44,24 @@
 // Components
 import ToDoItemPriority from "@/components/main/ToDoItem/ToDoItemPriority.vue";
 import ToDoItemDue from "@/components/main/ToDoItem/ToDoItemDue.vue";
+import { mapActions } from "vuex";
 
 export default {
   props: {
-    groupID: String,
-    projectID: String,
     todoItemID: String
   },
   methods: {
     toggleCompleted() {
-      this.$store.dispatch("toggleTodoCompletionByID", {
-        groupID: this.groupID,
-        projectID: this.projectID,
-        todoItemID: this.todoItemID
+      this.setTodoCompletion({
+        todoID: this.todoItemID,
+        completed: !this.completed
       });
-    }
+    },
+    ...mapActions(["setTodoCompletion"])
   },
   computed: {
     todo() {
-      return this.$store.getters.getTodoByID(
-        this.groupID,
-        this.projectID,
-        this.todoItemID
-      );
+      return this.$store.getters.getTodoByID(this.todoItemID);
     },
     title() {
       return this.todo.title;
@@ -75,13 +70,18 @@ export default {
       return this.todo.description;
     },
     completed() {
-      return this.todo.completed;
+      const completion = this.todo.completed;
+      console.log(
+        "🚀 ~ file: ToDoItemRow.vue ~ line 71 ~ completed ~ completion",
+        completion
+      );
+      return completion;
     },
     priority() {
       return this.todo.priority;
     },
     dueDate() {
-      return this.todo.dueDate;
+      return this.todo.dueDate.toDate();
     }
   },
   components: {

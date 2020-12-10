@@ -58,7 +58,7 @@ const actions = {
 
     // clear userProfile and redirect to /login
     commit("setUserProfile", {});
-    router.push("/login")
+    router.push("/login");
   }
 };
 

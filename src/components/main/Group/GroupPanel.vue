@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column w-100">
+  <div v-if="projectsLoaded && todosLoaded" class="d-flex flex-column w-100">
     <GroupHeader :title="title" />
     <ProjectPanel
       v-for="projectID in projectIDs"
@@ -11,6 +11,9 @@
 </template>
 
 <script>
+// Import DataModels
+import { DataCategory } from "@/models/DataCategory";
+
 // Import Components
 import GroupHeader from "@/components/main/Group/GroupHeader";
 import ProjectPanel from "@/components/main/Project/ProjectPanel";
@@ -20,11 +23,17 @@ export default {
     groupID: String
   },
   computed: {
+    projectsLoaded() {
+      return this.$store.getters.getObjectLoadedState(DataCategory.project);
+    },
+    todosLoaded() {
+      return this.$store.getters.getObjectLoadedState(DataCategory.todo);
+    },
     title() {
       return this.$store.getters.getGroupTitleByID(this.groupID);
     },
     projectIDs() {
-      return this.$store.getters.getAllProjectIDs(this.groupID);
+      return this.$store.getters.getProjectIDsInGroup(this.groupID);
     }
   },
   components: {

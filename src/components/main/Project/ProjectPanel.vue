@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column h-100">
+  <div v-if="todosLoaded" class="d-flex flex-column h-100">
     <ProjectPanelHeader :title="title" />
     <ToDoItemRow
       v-for="todoID in todoIDs"
@@ -13,6 +13,9 @@
 </template>
 
 <script>
+// Import Type Definitions
+import { DataCategory } from "@/models/DataCategory";
+
 // Import Components
 import ProjectPanelHeader from "@/components/main/Project/ProjectPanelHeader";
 import ToDoItemRow from "@/components/main/ToDoItem/ToDoItemRow";
@@ -29,17 +32,27 @@ export default {
     AddItemButton
   },
   computed: {
+    todosLoaded() {
+      return this.$store.getters.getObjectLoadedState(DataCategory.todo);
+    },
     project() {
-      return this.$store.getters.getProjectByID(this.groupID, this.projectID);
+      const project = this.$store.getters.getProjectByID(this.projectID);
+      console.log(
+        "🚀 ~ file: ProjectPanel.vue ~ line 34 ~ project ~ project",
+        project
+      );
+      return project;
     },
     title() {
       return this.project.title;
     },
     todoIDs() {
-      return this.$store.getters.getProjectTodoIDs(
-        this.groupID,
-        this.projectID
+      const todoIDs = this.$store.getters.getTodoIDsInProject(this.projectID);
+      console.log(
+        "🚀 ~ file: ProjectPanel.vue ~ line 51 ~ todoIDs ~ todoIDs",
+        todoIDs
       );
+      return todoIDs;
     }
   },
   methods: {
