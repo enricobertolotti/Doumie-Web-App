@@ -6,21 +6,23 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store/store";
 
-// import firebase from "firebase";
+import "@/firebase/firebase";
+import { auth } from "@/firebase/firebase";
 
 Vue.config.productionTip = false;
 
-// let app: unknown;
+let app: unknown;
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount("#app");
+auth.onAuthStateChanged(user => {
+  if (!app) {
+    app = new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount("#app");
+  }
 
-// firebase.auth().onAuthStateChanged(user => {
-//   console.log(user);
-//   if (!app) {
-//     app =
-//   }
-// });
+  if (user) {
+    store.dispatch("fetchUserProfile", user);
+  }
+});

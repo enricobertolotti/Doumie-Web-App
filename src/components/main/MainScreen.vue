@@ -30,11 +30,6 @@ export default {
       return this.$store.getters.stateSubtitle;
     }
   },
-  methods: {
-    setSubtitle(newSubtitle) {
-      this.subtitle = newSubtitle;
-    }
-  },
   components: {
     OverviewPanel,
     Preferences

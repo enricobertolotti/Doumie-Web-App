@@ -3,7 +3,9 @@
     class="d-flex userButton justify-content-left m-2 p-2"
     v-on:click="$emit('clicked')"
   >
-    <div class="d-flex userIcon align-self-center"></div>
+    <div class="d-flex userIcon align-self-center">
+      <b-avatar variant="light"></b-avatar>
+    </div>
     <div class="d-flex flex-column justify-items-start">
       <h5 class="align-self-start">{{ userName() }}</h5>
       <h6 class="align-self-start">{{ email() }}</h6>

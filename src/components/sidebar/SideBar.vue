@@ -38,7 +38,6 @@ export default {
   name: "",
   methods: {
     userButtonClicked() {
-      console.log("userButtonClicked");
       this.$store.dispatch("updateAppState", {
         type: states.preferences,
         params: []

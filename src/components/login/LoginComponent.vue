@@ -1,30 +1,15 @@
 <template>
+  <!-- Input Form -->
   <b-form>
     <b-form-group
       id="input-group-1"
-      label="Name"
+      label="Email"
       label-for="input-1"
       class="text-left whiteText"
     >
       <b-form-input
         id="input-1"
-        v-model="signupForm.name"
-        type="text"
-        required
-        placeholder="Enter Name"
-        autocomplete="name"
-      ></b-form-input>
-    </b-form-group>
-
-    <b-form-group
-      id="input-group-2"
-      label="Email address"
-      label-for="input-2"
-      class="text-left whiteText"
-    >
-      <b-form-input
-        id="input-2"
-        v-model="signupForm.email"
+        v-model="loginForm.email"
         type="email"
         required
         placeholder="Enter email"
@@ -33,43 +18,47 @@
     </b-form-group>
 
     <b-form-group
-      id="input-group-3"
+      id="input-group-2"
       label="Password"
-      label-for="input-3"
+      label-for="input-2"
       class="text-left whiteText"
     >
       <b-form-input
         type="password"
         id="text-password"
-        v-model="signupForm.password"
+        v-model="loginForm.password"
         aria-describedby="password-help-block"
         placeholder="Enter Password"
-        autocomplete="new-password"
+        autocomplete="current-password"
       ></b-form-input>
     </b-form-group>
 
-    <b-button @click="signUp()" variant="primary">Sign Up</b-button>
+    <b-button @click="login()" variant="primary">Log In</b-button>
   </b-form>
 </template>
 
 <script>
 export default {
-  name: "Register",
+  name: "Login",
   data() {
     return {
-      signupForm: {
-        name: "",
+      loginForm: {
         email: "",
         password: ""
       }
     };
   },
   methods: {
-    async signUp() {
-      await this.$store.dispatch("signup", {
-        email: this.signupForm.email,
-        password: this.signupForm.password,
-        name: this.signupForm.name
+    createAccount() {
+      this.$emit("createaccount");
+    },
+    forgotPassword() {
+      this.$emit("forgotPassword");
+    },
+    login() {
+      this.$store.dispatch("login", {
+        email: this.loginForm.email,
+        password: this.loginForm.password
       });
     }
   }
