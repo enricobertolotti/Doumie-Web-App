@@ -1,11 +1,18 @@
 <template>
   <div>
-    <h1>Home Screen</h1>
+    <h1 style="color: white;">Home Screen</h1>
+    <b-button @click="loginPage()">Login</b-button>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    loginPage() {
+      this.$router.push("/login");
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>
