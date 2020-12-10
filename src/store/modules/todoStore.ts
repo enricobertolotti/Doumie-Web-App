@@ -4,7 +4,6 @@ import Vuex from "vuex";
 import * as fb from "@/firebase/firebase";
 
 import { DataCategory } from "@/models/DataCategory";
-import { CardPlugin } from "bootstrap-vue";
 
 Vue.use(Vuex);
 
