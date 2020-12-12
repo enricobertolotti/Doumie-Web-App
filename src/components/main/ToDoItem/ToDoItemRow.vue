@@ -48,7 +48,10 @@
 // Components
 import ToDoItemPriority from "@/components/main/ToDoItem/ToDoItemPriority.vue";
 import ToDoItemDue from "@/components/main/ToDoItem/ToDoItemDue.vue";
-import { mapActions } from "vuex";
+
+// Store
+import { createNamespacedHelpers } from "vuex";
+const { mapActions } = createNamespacedHelpers("todoStore");
 
 export default {
   props: {
@@ -56,7 +59,7 @@ export default {
   },
   methods: {
     toggleCompleted() {
-      this.updateTodoCompletion({
+      this.$store.dispatch("updateTodoCompletion", {
         todoID: this.todoItemID,
         completed: !this.completed
       });
@@ -68,17 +71,14 @@ export default {
         priority: priority
       });
     },
-    ...mapActions(["updateTodoCompletion, updateTodoPriority"])
+    ...mapActions(["updateTodoCompletion", "updateTodoPriority"])
   },
   computed: {
     todo() {
       return this.$store.getters.getTodoByID(this.todoItemID);
     },
     title() {
-      return this.$store.getters.getTodoPropertyByID(
-        this.todoItemID,
-        "title"
-      );
+      return this.$store.getters.getTodoPropertyByID(this.todoItemID, "title");
     },
     description() {
       return this.$store.getters.getTodoPropertyByID(
@@ -93,10 +93,9 @@ export default {
       );
     },
     dueDate() {
-      return this.$store.getters.getTodoPropertyByID(
-        this.todoItemID,
-        "dueDate"
-      ).toDate();
+      return this.$store.getters
+        .getTodoPropertyByID(this.todoItemID, "dueDate")
+        .toDate();
     }
   },
   components: {

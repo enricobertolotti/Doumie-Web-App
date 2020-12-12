@@ -106,6 +106,13 @@ const mutations = {
     } catch (err) {
       console.log("todoStore: Error trying to set todo priority: ", err);
     }
+  },
+  addTodoItem(state, todoItem) {
+    try {
+      state.todos.push(todoItem);
+    } catch (error) {
+      console.log("todoStore: Error trying to add todo item: ", error);
+    }
   }
 };
 
@@ -124,6 +131,13 @@ const actions = {
       priority: priority
     });
     fb.todos.doc(todoID).update({ priority: priority });
+  },
+  addTodoItem({ dispatch, commit, getters, rootGetters }, todoItem) {
+    todoItem.createdOn = new Date();
+    todoItem.creator = rootGetters.userID;
+    todoItem.completed = false;
+    commit("addTodoItem", todoItem);
+    fb.todos.add(todoItem);
   }
 };
 

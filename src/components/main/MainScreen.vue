@@ -1,7 +1,15 @@
 <template>
-  <div class="d-flex justify-content-center darker-bg w-100 h-100 p-4">
+  <div
+    class="d-flex justify-content-center darker-bg w-100 h-100 p-4"
+    :class="{ roundedLeftCorner: isMobile }"
+  >
     <div class="d-flex flex-column flex-grow-1">
-      <TitleBar :title="title" :subTitle="subtitle" :button="button" @logout="logout()" />
+      <TitleBar
+        :title="title"
+        :subTitle="subtitle"
+        :button="button"
+        @logout="logout()"
+      />
       <!-- <h1 class="align-self-start">{{ title }}</h1>
       <h6 v-if="subtitle" class="align-self-start">{{ subtitle }}</h6> -->
       <div class="d-flex flex-grow-1">
@@ -42,6 +50,9 @@ export default {
         default:
           return {};
       }
+    },
+    isMobile() {
+      return this.$screen.md;
     }
   },
   methods: {
@@ -60,7 +71,10 @@ export default {
 
 <style lang="scss" scoped>
 .darker-bg {
-  border-radius: 2em 0 0 2em;
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.roundedLeftCorner {
+  border-radius: 2em 0 0 2em;
 }
 </style>

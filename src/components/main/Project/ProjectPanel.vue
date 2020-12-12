@@ -8,7 +8,10 @@
       :projectID="projectID"
       :todoItemID="todoID"
     />
-    <AddItemButton v-on:clicked="addTask" />
+    <div v-if="isAddingTodo" class="d-flex w-100">
+      <AddToDoItemComponent @finished="toggleIsAddingTask()" />
+    </div>
+    <AddItemButton v-on:clicked="toggleIsAddingTask()" />
   </div>
 </template>
 
@@ -20,16 +23,24 @@ import { DataCategory } from "@/models/DataCategory";
 import ProjectPanelHeader from "@/components/main/Project/ProjectPanelHeader";
 import ToDoItemRow from "@/components/main/ToDoItem/ToDoItemRow";
 import AddItemButton from "@/components/main/ToDoItem/AddItemButton.vue";
+import AddToDoItemComponent from "@/components/main/ToDoItem/AddToDoItemComponent.vue";
+import { mapState } from "vuex";
 
 export default {
   props: {
     groupID: String,
     projectID: String
   },
+  data() {
+    return {
+      isAddingTodo: false
+    };
+  },
   components: {
     ProjectPanelHeader,
     ToDoItemRow,
-    AddItemButton
+    AddItemButton,
+    AddToDoItemComponent
   },
   computed: {
     todosLoaded() {
@@ -47,17 +58,16 @@ export default {
       return this.project.title;
     },
     todoIDs() {
-      const todoIDs = this.$store.getters.getTodoIDsInProject(this.projectID);
-      console.log(
-        "🚀 ~ file: ProjectPanel.vue ~ line 51 ~ todoIDs ~ todoIDs",
-        todoIDs
-      );
-      return todoIDs;
-    }
+       console.log("🚀 ~ file: ProjectPanel.vue ~ line 64 ~ todoIDs ~ this.todos.id", this.todos.id);
+      return this.todos.map(todo => todo.id);
+    },
+    ...mapState({
+      todos: state => state.todoStore.todos
+    })
   },
   methods: {
-    addTask() {
-      alert("Add Task");
+    toggleIsAddingTask() {
+      this.isAddingTodo = !this.isAddingTodo;
     }
   }
 };

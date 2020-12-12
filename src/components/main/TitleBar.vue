@@ -30,7 +30,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 hr {
   margin-top: 0.7rem;
   margin-bottom: 0.7rem;
@@ -38,5 +37,4 @@ hr {
   border-top: 2px solid rgba(255, 255, 255, 0.05);
   width: 100%;
 }
-
 </style>

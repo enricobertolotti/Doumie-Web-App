@@ -1,10 +1,14 @@
 <template>
   <div class="d-flex flex-column w-100">
     <div class="d-flex  justify-content-between">
-        <h6 class="align-self-start">{{ data.title }}</h6>
-        <div v-if="data.button" class="d-flex button" @click="$emit(data.button.emit)">
-          <h6>{{ data.button.text }}</h6>
-        </div>
+      <h6 class="align-self-start">{{ data.title }}</h6>
+      <div
+        v-if="data.button"
+        class="d-flex button"
+        @click="$emit(data.button.emit)"
+      >
+        <h6>{{ data.button.text }}</h6>
+      </div>
     </div>
     <SideBarListElement
       v-for="(item, index) in data.items"

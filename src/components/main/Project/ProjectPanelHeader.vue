@@ -1,5 +1,8 @@
 <template>
-  <div class="d-flex flex-column projectHeader align-items-start w-100" :style="headerStyle">
+  <div
+    class="d-flex flex-column projectHeader align-items-start w-100"
+    :style="headerStyle"
+  >
     <div class="row w-100 m-0 p-0">
       <div class="align-items-start col-6 p-0">
         <h6 class="text-left m-0">{{ title }}</h6>

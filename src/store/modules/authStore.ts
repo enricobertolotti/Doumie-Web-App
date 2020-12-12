@@ -12,6 +12,9 @@ const getters = {
   },
   userEmail(state) {
     return state.userProfile.email;
+  },
+  userID(state) {
+    return state.userProfile.id;
   }
 };
 
@@ -31,8 +34,10 @@ const actions = {
     const userID = fb.auth.currentUser.uid;
     // fetch user profile
     const userProfile = await fb.users.doc(userID).get();
+    const user = userProfile.data();
+    user.id = userID;
     // set user profile in state
-    commit("setUserProfile", userProfile.data());
+    commit("setUserProfile", user);
   },
 
   async signup({ dispatch }, form) {
