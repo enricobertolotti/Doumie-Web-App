@@ -6,8 +6,8 @@
     <div class="p-0 w-100 flex-grow-1">
       <MainScreen :state="state" />
     </div>
-    <div v-if="isMobile" class="d-flex w-100">
-      <h1>Test</h1>
+    <div v-if="isMobile" class="mobile-nav">
+      <MobileNav />
     </div>
   </div>
 </template>
@@ -18,6 +18,7 @@ import Vue from "vue";
 // Import Components
 import SideBar from "../components/sidebar/SideBar.vue";
 import MainScreen from "../components/main/MainScreen.vue";
+import MobileNav from "../components/mobile/MobileNav.vue";
 
 import { states } from "@/models/States";
 
@@ -49,7 +50,8 @@ export default Vue.extend({
   },
   components: {
     SideBar,
-    MainScreen
+    MainScreen,
+    MobileNav
   },
   created() {
     // console.log(this.$store.getters.getGroupIDs);
@@ -61,7 +63,6 @@ export default Vue.extend({
 .home {
   background-color: var(--dark-bg-color);
 }
-
 .sidebar {
   max-width: 20em;
 }
