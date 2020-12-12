@@ -54,6 +54,7 @@ import { createNamespacedHelpers } from "vuex";
 const { mapActions } = createNamespacedHelpers("todoStore");
 
 export default {
+  name: "ToDoItemRow",
   props: {
     todoItemID: String
   },
