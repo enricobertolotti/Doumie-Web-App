@@ -30,6 +30,9 @@ const getters = {
     }
   },
   ///// Group Operations
+  getGroups: state => {
+    return state.groups;
+  },
   getGroupIDs: state => {
     return state.groups.map(group => group.id);
   },
@@ -58,6 +61,21 @@ const getters = {
   },
   getTodoByID: state => todoID => {
     return state.todos.find(todo => todo.id == todoID);
+  },
+  getTodoPropertyByID: (_state, getters) => (todoID, propertyType) => {
+    const todo = getters.getTodoByID(todoID);
+    switch (propertyType) {
+      case "title":
+        return todo.title;
+      case "dueDate":
+        return todo.dueDate;
+      case "completed":
+        return todo.completed;
+      case "description":
+        return todo.description;
+      case "priority":
+        return todo.priority;
+    }
   }
 };
 
@@ -81,17 +99,31 @@ const mutations = {
     } catch (err) {
       console.log("todoStore: Error trying to set todo completion: ", err);
     }
+  },
+  setTodoPriority(state, { todoID, priority }) {
+    try {
+      state.todos.find(todo => todo.id == todoID).priority = priority;
+    } catch (err) {
+      console.log("todoStore: Error trying to set todo priority: ", err);
+    }
   }
 };
 
 const actions = {
-  setTodoCompletion(context, { todoID, completed }) {
+  updateTodoCompletion(context, { todoID, completed }) {
     // Set todo in current browser session first and then push to firebase
     context.commit("setTodoCompletion", {
       todoID: todoID,
       completed: completed
     });
     fb.todos.doc(todoID).update({ completed: completed });
+  },
+  updateTodoPriority(context, { todoID, priority }) {
+    context.commit("setTodoPriority", {
+      todoID: todoID,
+      priority: priority
+    });
+    fb.todos.doc(todoID).update({ priority: priority });
   }
 };
 

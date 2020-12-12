@@ -1,6 +1,6 @@
 <template>
   <div v-if="projectsLoaded && todosLoaded" class="d-flex flex-column w-100">
-    <GroupHeader :title="title" />
+    <GroupHeader :title="title" :color="groupColor" />
     <ProjectPanel
       v-for="projectID in projectIDs"
       :key="projectID"
@@ -34,6 +34,9 @@ export default {
     },
     projectIDs() {
       return this.$store.getters.getProjectIDsInGroup(this.groupID);
+    },
+    groupColor() {
+      return this.$store.getters.getGroupByID(this.groupID).color;
     }
   },
   components: {

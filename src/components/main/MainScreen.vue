@@ -1,8 +1,9 @@
 <template>
-  <div class="d-flex justify-content-center darker-bg w-100 h-100 p-3">
+  <div class="d-flex justify-content-center darker-bg w-100 h-100 p-4">
     <div class="d-flex flex-column flex-grow-1">
-      <h1 class="align-self-start">{{ title }}</h1>
-      <h6 v-if="subtitle" class="align-self-start">{{ subtitle }}</h6>
+      <TitleBar :title="title" :subTitle="subtitle" :button="button" @logout="logout()" />
+      <!-- <h1 class="align-self-start">{{ title }}</h1>
+      <h6 v-if="subtitle" class="align-self-start">{{ subtitle }}</h6> -->
       <div class="d-flex flex-grow-1">
         <!-- Individual Pages go here -->
         <OverviewPanel v-if="state == 'overview'" />
@@ -15,6 +16,7 @@
 
 <script>
 // Import individual page components
+import TitleBar from "@/components/main/TitleBar";
 import Preferences from "@/components/main/Preferences/Preferences";
 import OverviewPanel from "@/components/main/Overview/OverviewPanel";
 
@@ -28,9 +30,28 @@ export default {
     },
     subtitle() {
       return this.$store.getters.stateSubtitle;
+    },
+    button() {
+      switch (this.state) {
+        case "preferences":
+          return {
+            text: "Sign Out",
+            emit: "logout",
+            buttonType: "btn btn-danger"
+          };
+        default:
+          return {};
+      }
+    }
+  },
+  methods: {
+    logout() {
+      console.log("Signing out");
+      this.$store.dispatch("logout");
     }
   },
   components: {
+    TitleBar,
     OverviewPanel,
     Preferences
   }

@@ -38,6 +38,7 @@ export default {
 
 .listElement {
   background-color: rgba($color: #ffffff, $alpha: 0);
+  border-radius: 0.5em;
 }
 
 .listElement:hover {

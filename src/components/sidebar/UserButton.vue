@@ -1,14 +1,14 @@
 <template>
   <div
-    class="d-flex userButton justify-content-left m-2 p-2"
+    class="d-flex userButton justify-content-left"
     v-on:click="$emit('clicked')"
   >
-    <div class="d-flex userIcon align-self-center">
+    <div class="d-flex userIcon align-self-center m-2">
       <b-avatar variant="light"></b-avatar>
     </div>
-    <div class="d-flex flex-column justify-items-start">
-      <h5 class="align-self-start">{{ user.name }}</h5>
-      <h6 class="align-self-start">{{ user.email }}</h6>
+    <div class="d-flex flex-column justify-items-start m-2">
+      <h6 class="align-self-start">{{ user.name }}</h6>
+      <h6 class="align-self-start" style="opacity: 30%;">Preferences</h6>
     </div>
   </div>
 </template>
@@ -44,10 +44,8 @@ export default {
   background-color: rgba($color: #ffffff, $alpha: 0.2);
 }
 
-.userIcon {
-  height: 3em;
-  width: 3em;
-  background-color: rgba($color: #ffffff, $alpha: 0.1);
-  border-radius: 50%;
+h6 {
+  margin: 0;
+  padding: 0;
 }
 </style>

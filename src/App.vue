@@ -20,7 +20,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: rgba(255, 255, 255, 0.9);
 
   background-color: #2c3e50;
 

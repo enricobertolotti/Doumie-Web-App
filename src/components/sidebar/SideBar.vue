@@ -3,7 +3,7 @@
     class="d-flex flex-column justify-content-start w-100 h-100"
     style="background: #0e1428"
   >
-    <Logo />
+    <Logo :vertical="false" class="sidebar-section" />
     <!-- Overview -->
     <SideBarSection
       class="sidebar-section"
@@ -13,8 +13,9 @@
 
     <SideBarSection
       class="sidebar-section mb-auto"
-      :data="overviewSection"
-      v-on:clicked="overviewElementClicked"
+      :data="groupSection"
+      v-on:clicked="groupElementClicked()"
+      v-on:buttonClicked="sectionButtonClicked()"
     />
 
     <!-- Groups 
@@ -24,7 +25,7 @@
     /> -->
 
     <!-- User Button -->
-    <UserButton v-on:clicked="userButtonClicked()" />
+    <UserButton class="userButton" v-on:clicked="userButtonClicked()" />
   </div>
 </template>
 
@@ -42,6 +43,9 @@ export default {
         type: states.preferences,
         params: []
       });
+    },
+    sectionButtonClicked() {
+      alert("Section Button Clicked");
     },
     overviewElementClicked(value) {
       this.$store.dispatch("updateAppState", {
@@ -64,6 +68,21 @@ export default {
         button: false,
         items: listItems
       };
+    },
+    groupSection() {
+      const groups = this.$store.getters.getGroups;
+      const items = [];
+      groups.forEach(group =>
+        items.push({ id: group.id, name: group.title, color: group.color })
+      );
+      return {
+        title: "My Groups",
+        button: {
+          text: "+",
+          emit: "buttonClicked"
+        },
+        items: items
+      };
     }
   },
   components: {
@@ -76,6 +95,9 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-section {
-  margin: 1em 0;
+  padding: 1em 1.5em;
+}
+.userButton {
+  margin: 1em;
 }
 </style>

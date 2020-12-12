@@ -1,42 +1,46 @@
 <template>
-  <div class="d-flex todo-row-container w-100">
-    <!-- Left Side -->
-    <div class="d-flex w-50 align-items-center">
-      <!-- Icon -->
-      <div
-        class="d-flex checkbox align-items-center h-100 m-2"
-        v-on:click="toggleCompleted()"
-      >
-        <img
-          v-if="completed"
-          src="@/assets/elements/checkbox_icon_filled.svg"
-          alt="checkbox-filled"
-          class="checkbox-icon"
+  <div>
+    <div class="d-flex todo-row-container w-100">
+      <!-- Left Side -->
+      <div class="d-flex w-50 align-items-center">
+        <!-- Icon -->
+        <div
+          class="d-flex checkbox align-items-center h-100 m-2"
+          v-on:click="toggleCompleted()"
+        >
+          <img
+            v-if="completed"
+            src="@/assets/elements/checkbox_icon_filled.svg"
+            alt="checkbox-filled"
+            class="checkbox-icon"
+          />
+          <img
+            v-else
+            src="@/assets/elements/checkbox_icon_empty.svg"
+            alt="checkbox-empty"
+            class="checkbox-icon"
+          />
+        </div>
+        <!-- Text Title -->
+        <div class="d-flex flex-column p-0 m-2">
+          <h6 class="align-self-start m-0">{{ title }}</h6>
+          <p class="align-self-start todoDescription m-0">{{ description }}</p>
+        </div>
+      </div>
+      <!-- Right Side -->
+      <div class="d-flex w-50 align-items-center">
+        <ToDoItemPriority
+          class="d-flex justify-content-center h-100 w-100"
+          :todoID="todoItemID"
+          @updatePriority="updateTodoPriority"
         />
-        <img
-          v-else
-          src="@/assets/elements/checkbox_icon_empty.svg"
-          alt="checkbox-empty"
-          class="checkbox-icon"
+        <ToDoItemDue
+          class="d-flex justify-content-center h-100 w-100"
+          :dueDate="dueDate"
         />
       </div>
-      <!-- Text Title -->
-      <div class="d-flex flex-column p-0 m-2">
-        <h6 class="align-self-start m-0">{{ title }}</h6>
-        <p class="align-self-start todoDescription m-0">{{ description }}</p>
-      </div>
     </div>
-    <!-- Right Side -->
-    <div class="d-flex w-50 align-items-center">
-      <ToDoItemPriority
-        class="d-flex justify-content-center h-100 w-100"
-        :priority="priority"
-      />
-      <ToDoItemDue
-        class="d-flex justify-content-center h-100 w-100"
-        :dueDate="dueDate"
-      />
-    </div>
+    <hr />
   </div>
 </template>
 
@@ -52,36 +56,47 @@ export default {
   },
   methods: {
     toggleCompleted() {
-      this.setTodoCompletion({
+      this.updateTodoCompletion({
         todoID: this.todoItemID,
         completed: !this.completed
       });
     },
-    ...mapActions(["setTodoCompletion"])
+    updateTodoPriority(priority) {
+      console.log("updateing priority with", priority);
+      this.updateTodoPriority({
+        todoID: this.todoItemID,
+        priority: priority
+      });
+    },
+    ...mapActions(["updateTodoCompletion, updateTodoPriority"])
   },
   computed: {
     todo() {
       return this.$store.getters.getTodoByID(this.todoItemID);
     },
     title() {
-      return this.todo.title;
+      return this.$store.getters.getTodoPropertyByID(
+        this.todoItemID,
+        "title"
+      );
     },
     description() {
-      return this.todo.description;
+      return this.$store.getters.getTodoPropertyByID(
+        this.todoItemID,
+        "description"
+      );
     },
     completed() {
-      const completion = this.todo.completed;
-      console.log(
-        "🚀 ~ file: ToDoItemRow.vue ~ line 71 ~ completed ~ completion",
-        completion
+      return this.$store.getters.getTodoPropertyByID(
+        this.todoItemID,
+        "completed"
       );
-      return completion;
-    },
-    priority() {
-      return this.todo.priority;
     },
     dueDate() {
-      return this.todo.dueDate.toDate();
+      return this.$store.getters.getTodoPropertyByID(
+        this.todoItemID,
+        "dueDate"
+      ).toDate();
     }
   },
   components: {
@@ -109,5 +124,14 @@ export default {
 
 .todoDescription {
   font-size: 0.8em;
+  opacity: 70%;
+}
+
+hr {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  border: 0;
+  border-top: 2px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
 }
 </style>

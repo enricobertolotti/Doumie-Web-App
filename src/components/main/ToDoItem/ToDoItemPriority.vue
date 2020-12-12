@@ -1,13 +1,18 @@
 <template>
   <div class="d-flex align-items-center p-2">
-    <b-dropdown id="dropdown-1" size="sm" text="Dropdown Button">
-      <b-dropdown-item
+    <b-dropdown
+      id="dropdown-1"
+      size="sm"
+      :text="capitalize(this.currentPriority)"
+      v-on:change="updatePriority()"
+    >
+      <b-dropdown-item-button
         v-for="priority in priorities"
         :key="priority"
-        @click="selected(priority)"
+        @click.prevent="selectPriority(priority)"
       >
         <a class="dropdown-text" :style="itemStyle(priority)">{{ priority }}</a>
-      </b-dropdown-item>
+      </b-dropdown-item-button>
     </b-dropdown>
     <!-- <div class="d-flex button align-items-center">
       <p class="m-1" :style="itemStyle">{{ priority }}</p>
@@ -20,7 +25,12 @@
 import { Priority } from "@/models/ToDoItem";
 export default {
   props: {
-    priority: String
+    todoID: String
+  },
+  data() {
+    return {
+      selectedOption: 0
+    }
   },
   computed: {
     arrowStyle() {
@@ -28,12 +38,19 @@ export default {
     },
     priorities() {
       return Object.values(Priority);
+    },
+    currentPriority() {
+      return this.$store.getters.getTodoPropertyByID(this.todoID, "priority");
     }
   },
   methods: {
-    selected(value) {
-      console.log(value);
+    selectPriority(priority) {
+      // Only select when priorities are different
+      if (priority != this.currentPriority) {
+        this.$emit("updatePriority", priority);
+      }
     },
+
     color() {
       switch (this.priority) {
         case Priority.low:
@@ -46,8 +63,15 @@ export default {
           return "black";
       }
     },
+    capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
     itemStyle(priority) {
       return "color: " + this.color(priority) + ";";
+    },
+    updatePriority() {
+      console.log("Selected Priority", this.selectedPriority)
+      
     }
   }
 };
