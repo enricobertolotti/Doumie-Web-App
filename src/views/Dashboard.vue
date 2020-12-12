@@ -1,10 +1,13 @@
 <template>
-  <div class="d-flex h-100 w-100 home p-0">
-    <div class="sidebar p-0">
+  <div class="d-flex h-100 w-100 home p-0" :class="{ 'flex-column': isMobile }">
+    <div v-if="!isMobile" class="sidebar p-0">
       <SideBar @userButtonClicked="onUserButtonClick" />
     </div>
-    <div class="p-0 w-100">
+    <div class="p-0 w-100 flex-grow-1">
       <MainScreen :state="state" />
+    </div>
+    <div v-if="isMobile" class="d-flex w-100">
+      <h1>Test</h1>
     </div>
   </div>
 </template>
@@ -29,6 +32,11 @@ export default Vue.extend({
         stateParams: ""
       }
     };
+  },
+  computed: {
+    isMobile() {
+      return !this.$screen.md;
+    }
   },
   methods: {
     onUserButtonClick() {

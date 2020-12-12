@@ -9,6 +9,10 @@ import store from "./store/store";
 import "@/firebase/firebase";
 import { auth } from "@/firebase/firebase";
 
+// Responisive media queries
+import VueScreen from "vue-screen";
+Vue.use(VueScreen, "bootstrap");
+
 Vue.config.productionTip = false;
 
 let app: unknown;
