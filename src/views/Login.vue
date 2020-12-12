@@ -2,7 +2,7 @@
   <div class="d-flex flex-column w-100 h-100 login">
     <h1 style="color: white;">Doumie</h1>
     <div class="d-flex flex-grow-1 justify-content-center align-items-center">
-      <div class="w-50">
+      <div class="col-md-6" style="max-width: 500px;">
         <LoginComponent
           class="cardify p-4"
           v-if="showLoginForm"
