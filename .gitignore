@@ -22,3 +22,6 @@ pnpm-debug.log*
 *.sln
 *.sw?
 *.cache
+
+# NPM 
+package-lock.json
