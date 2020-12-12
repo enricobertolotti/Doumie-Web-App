@@ -19,7 +19,7 @@ import MainScreen from "../components/main/MainScreen.vue";
 import { states } from "@/models/States";
 
 export default Vue.extend({
-  name: "Home",
+  name: "Dashboard",
   data() {
     return {
       /** @type State */
